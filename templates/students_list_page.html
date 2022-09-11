@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<style>
+    .social-link {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        border-radius: 50%;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+
+    .social-link:hover,
+    .social-link:focus {
+        background: #ddd;
+        text-decoration: none;
+        color: #555;
+    }
+</style>
+<!-- Another variation with a button -->
+
+<div class="">
+    <h3 class="font-weight-medium text-uppercase mb-4">All Students List</h3>
+    <div class="row text-center">
+        {% for student in students %}
+        <div class="col-xl-3 col-sm-4 mb-5">
+            <a href="{%url 'student_counsil_page' student.id %}">
+                <div class=" d-flex no-block align-items-center p-3 bg-info text-white ">
+                    <div class="">
+                        <img src="{{student.user.google_picture}}" alt="user" class="rounded-circle" width="60">
+                    </div>
+                    <div class="ms-2">
+                        <h4 class="mb-0 text-white pl-4">{{student.user.fullname}}</h4>
+                        <p class="mb-0">{{student.rank}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

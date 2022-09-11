@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<style>
+    .social-link {
+        width: 30px;
+        height: 30px;
+        border: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        border-radius: 50%;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+
+    .social-link:hover,
+    .social-link:focus {
+        background: #ddd;
+        text-decoration: none;
+        color: #555;
+    }
+</style>
+    <!-- Another variation with a button -->
+
+    <div class="">
+        <h3 class="font-weight-medium text-uppercase mb-4">All Counsellors List</h3>
+        <div class="row text-center">
+            {% for counsil in counsellor %}
+                <div class="col-xl-3 col-sm-4 mb-5">
+                    <a href="" data-toggle="modal" data-target="#myModal_{{counsil.id}}">
+                        <div class=" d-flex no-block align-items-center p-3 bg-info text-white ">
+                            <div class="">
+                                <img src="{{counsil.user.google_picture}}" alt="user" class="rounded-circle" width="60">
+                            </div>
+                            <div class="ms-2">
+                                <h4 class="mb-0 text-white pl-4">{{counsil.user.fullname}}</h4>
+                                <p class="mb-0 pl-4">{{counsil.college}} </p>
+                                <p class="mb-0 pl-4">({{counsil.from_yr}}-{{counsil.to_yr}})</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="modal fade" id="myModal_{{counsil.id}}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">About {{counsil.user.fullname}} </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="">
+                                    <div class="material-card card">
+                                        <div class="card-body">
+                                            <center class="mt-4">
+                                                <img src="{{counsil.user.google_picture}}" class="rounded-circle" width="150" height="150" />
+                                       
+                                                <h4 class="card-title mt-2">{{counsil.user.fullname}}</h4>
+                                                <h6 class="card-subtitle">{{counsil.user.user.email}}</h6>
+                                                <h6 class="card-subtitle">{{counsil.college}} ({{counsil.from_yr}} - {{counsil.to_yr}})</h6>
+                                                <small class="text-muted pt-4 db">Current Job</small>
+                                                <h6>{{counsil.current_job}}</h6>
+                                            </center>
+                                        </div>
+                                        <div>
+                                            <hr>
+                                        </div>
+                                        <div class="card-body"> 
+                                            <small class="text-muted pt-4 db">Couselling Philosophy</small>
+                                            <h6>{{counsil.counselling_thought}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

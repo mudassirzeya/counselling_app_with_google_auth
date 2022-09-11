@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<!-- <h1>Student Council Page</h1> -->
+<style>
+    .gradient-custom {
+/* fallback for old browsers */
+background: #f6d365;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1));
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right bottom, rgba(246, 211, 101, 1), rgba(253, 160, 133, 1))
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300&display=swap');
+
+html,
+body {
+    height: 100%
+}
+
+/* body {
+    display: grid;
+    place-items: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: #9C27B0
+} */
+
+
+
+
+ .card {
+     position: relative;
+     display: flex;
+     padding:20px;
+     flex-direction: column;
+     min-width: 0;
+     word-wrap: break-word;
+     background-color: #fff;
+     background-clip: border-box;
+     border: 1px solid #d2d2dc;
+     border-radius: 11px;
+     -webkit-box-shadow: 0px 0px 5px 0px rgb(249, 249, 250);
+     -moz-box-shadow: 0px 0px 5px 0px rgba(212, 182, 212, 1);
+     box-shadow: 0px 0px 5px 0px rgb(161, 163, 164)
+ }
+
+.media img{
+      
+    width: 60px;
+    height: 60px;
+}
+
+
+.reply a {
+    
+    text-decoration: none;
+}
+
+.scroll {
+    max-height: '50%';
+    overflow-y: auto;
+}
+</style>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-4 gradient-custom text-center text-white">
+                <img src="{{student_profile.user.google_picture}}" alt="Avatar"
+                    class="rounded-circle p-4" />
+                <h5>{{student_profile.user.fullname}}</h5>
+                <!-- <p>Web Designer</p>
+                <i class="far fa-edit mb-5"></i> -->
+            </div>
+            <div class="col-md-8">
+                <div class="card-body p-4">
+                    <h6>Information</h6>
+                    <hr class="mt-0 mb-4">
+                    <div class="row pt-1">
+                        <div class="col-6 mb-3">
+                            <h6>Email</h6>
+                            <p class="text-muted">{{student_profile.user.user.email}}</p>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <h6>Rank</h6>
+                            <p class="text-muted">{{student_profile.rank}}</p>
+                        </div>
+                    </div>
+                    <hr class="mt-0 mb-4">
+                    <div class="row pt-1">
+                        <div class="col-12 mb-3">
+                            <h6>Description</h6>
+                            <p class="text-muted">{{student_profile.description}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-5 mt-5">
+        {% for comment in comments %}
+        <div class="card">
+            <div class="card-header" style="background-color:#DFD8D8 ;">
+                <!-- <img class="rounded-circle" alt="" src="{{comment.commented_by.google_picture}}" style="max-width: 10%;" /> -->
+                {% if comment.commented_by.user_type == 'counsellor' %}
+                <span data-toggle="modal" data-target="#myModal_{{comment.commented_by.id}}">
+                    <b>{{comment.commented_by.fullname}}</b>
+                </span>
+                {% else %}
+                    <span><b>{{comment.commented_by.fullname}}</b></span>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{comment.content}}</p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+            <div class="card-footer">
+                {% for reply in comment.replies.all %}
+                <div class="media p-4">
+                    <!-- <img class="rounded-circle" alt="Bootstrap Media Another Preview"
+                            src="{{reply.commented_by.google_picture}}" /> -->
+                    <div>
+                
+                        
+                                <h5><b>{{reply.commented_by.fullname}}</b></h5>
+                                <!-- <span>- {{reply.date_posted}}</span> -->
+                    
+                        {{reply.content}}
+                    </div>
+                </div>
+                {% endfor %}
+                {% if staffprofile.user_type == 'counsellor' or request.user == student_profile.user.user %}
+                <a class="text-decoration-none" data-toggle="collapse" href="#collapseExample_{{comment.id}}" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    <span>
+                        <i class="fa fa-reply"></i>
+                        reply
+                    </span>
+                </a>
+                {% endif %}
+                <div class="collapse" id="collapseExample_{{comment.id}}">
+                    <div>
+                        <form action="{% url 'student_counsil_page' student_profile.id   %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <!-- {{ form.author }} -->
+                            </div>
+                            <div class="form-group mt-md-2">
+                                {{form.content}}
+                            </div>
+                            <input type="hidden" name="reply_id" value="{{ comment.id }}">
+                            <button class="btn btn-rounded btn-info" type="submit" value="Reply">Post</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% if staffprofile.user_type == 'counsellor' or request.user == student_profile.user.user %}
+        <div class="card card-body">
+            <div>
+                <form action="{% url 'student_counsil_page' student_profile.id  %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <!-- {{ form.author }} -->
+                    </div>
+                    <div class="form-group mt-md-2">
+                        {{form.content}}
+                    </div>
+                    <input type="hidden" name="reply_id" value="">
+                    <button class="btn btn-rounded btn-info" type="submit" value="Reply">Add New Comment</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% for counsil in counsellors %}
+    <div class="modal fade" id="myModal_{{counsil.user.id}}">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">About {{counsil.user.fullname}} </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="">
+                        <div class="material-card card">
+                            <div class="card-body">
+                                <center class="mt-4">
+                                    <img src="{{counsil.user.google_picture}}" class="rounded-circle" width="150"
+                                        height="150" />
+    
+                                    <h4 class="card-title mt-2">{{counsil.user.fullname}}</h4>
+                                    <h6 class="card-subtitle">{{counsil.user.user.email}}</h6>
+                                    <h6 class="card-subtitle">{{counsil.college}} ({{counsil.from_yr}} - {{counsil.to_yr}})
+                                    </h6>
+                                    <small class="text-muted pt-4 db">Current Job</small>
+                                    <h6>{{counsil.current_job}}</h6>
+                                </center>
+                            </div>
+                            <div>
+                                <hr>
+                            </div>
+                            <div class="card-body">
+                                <small class="text-muted pt-4 db">Couselling Philosophy</small>
+                                <h6>{{counsil.counselling_thought}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+<script>
+    var textfield = document.getElementsByTagName('textarea')
+    for(var i=0; i<textfield.length; i++ ){
+        textfield[i].classList.add('form-control');
+        textfield[i].rows = 3;
+    }
+
+
+</script>
+
+{% endblock %}

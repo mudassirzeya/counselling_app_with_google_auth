@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<div class="row justify-content-center">
+    <!-- Column -->
+    <div class="col-lg-4 col-xlg-3 col-md-5">
+        <div class="material-card card">
+            <div class="card-body">
+                <center class="mt-4">
+                    <img src="{{staffprofile.google_picture}}" class="rounded-circle" width="150" />
+                    <h4 class="card-title mt-2">{{staffprofile.fullname}}</h4>
+                    <h6 class="card-subtitle">{{counsellor_profile.college}} ({{counsellor_profile.from_yr}} - {{counsellor_profile.to_yr}})</h6>
+                </center>
+            </div>
+            <a class="text-center" href="" data-toggle="modal" data-target="#exampleModalCenter"><i
+                    class="fas fa-edit">Edit
+                    Profile</i></a>
+            <div>
+                <hr>
+            </div>
+            <div class="card-body">
+                <small class="text-muted">Email address</small>
+                <h6>{{staffprofile.user.email}}</h6>
+                 <small class="text-muted pt-4 db">Current Job</small>
+                <h6>{{counsellor_profile.current_job}}</h6>
+                <small class="text-muted pt-4 db">Counselling Philosophy</small>
+                <h6>{{counsellor_profile.counselling_thought}}</h6>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+    <!-- Column -->
+    
+    <!-- Column -->
+</div>
+
+<!-- modal  -->
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-info" id="exampleModalLongTitle">Edit Your Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{% url 'my_profile_page' %}">
+                    {% csrf_token %}
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Full name</label>
+                        <input type="text" class="form-control" name="name" value="{{staffprofile.fullname}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">College</label>
+                        <input type="text" class="form-control" name="college" value="{{counsellor_profile.college}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">From Year</label>
+                        <input type="number" class="form-control" name="from_yr" value="{{counsellor_profile.from_yr}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">To Year</label>
+                        <input type="number" class="form-control" name="to_yr" value="{{counsellor_profile.to_yr}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Current Job</label>
+                        <input type="text" class="form-control" name="current_job" value="{{counsellor_profile.current_job}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Counselling Philosophy</label>
+                        <textarea class="form-control" name="description" rows="3">{{counsellor_profile.counselling_thought}}</textarea>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-success" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
