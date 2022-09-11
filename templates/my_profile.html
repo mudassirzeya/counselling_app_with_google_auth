@@ -33,6 +33,8 @@
                 <h6>{{staffprofile.user.email}}</h6>
                  <small class="text-muted pt-4 db">Current Job</small>
                 <h6>{{counsellor_profile.current_job}}</h6>
+                <small class="text-muted pt-4 db">Phone</small>
+                <h6>{{counsellor_profile.user.phone}}</h6>
                 <small class="text-muted pt-4 db">Counselling Philosophy</small>
                 <h6>{{counsellor_profile.counselling_thought}}</h6>
             </div>
@@ -78,6 +80,10 @@
                     <div class="form-group mb-4">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Current Job</label>
                         <input type="text" class="form-control" name="current_job" value="{{counsellor_profile.current_job}}" required>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label class="mr-sm-2">Phone Number (If you like to be contacted by Rahmani 30 students)</label>
+                        <input type="text" class="form-control" placeholder="+919898989898" value="{{counsellor_profile.user.phone}}" name="phone" required>
                     </div>
                     <div class="form-group mb-4">
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Counselling Philosophy</label>

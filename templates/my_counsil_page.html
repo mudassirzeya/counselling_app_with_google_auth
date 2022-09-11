@@ -97,14 +97,17 @@
         </div>
     </div>
 </div>
-<div class="container-fluid mb-5 mt-5">
+<div class="alert alert-primary" role="alert">
+    <b>Please refresh the page to see latest comments.</b>
+</div>
+<div class="mb-5 mt-5">
     {% for comment in comments %}
     <div class="card">
         <div class="card-header" style="background-color:#DFD8D8 ;">
             <!-- <img class="rounded-circle" alt="" src="{{comment.commented_by.google_picture}}" style="max-width: 10%;" /> -->
             {% if comment.commented_by.user_type == 'counsellor' %}
             <span data-toggle="modal" data-target="#myModal_{{comment.commented_by.id}}">
-                <b>{{comment.commented_by.fullname}}</b>
+                <b style="color: blue;">{{comment.commented_by.fullname}}</b>
             </span>
             {% else %}
             <span><b>{{comment.commented_by.fullname}}</b></span>
@@ -122,9 +125,13 @@
                 <!-- <img class="rounded-circle" alt="Bootstrap Media Another Preview"
                             src="{{reply.commented_by.google_picture}}" /> -->
                 <div>
-
-
+                    {% if reply.commented_by.user_type == 'counsellor' %}
+                    <span data-toggle="modal" data-target="#myModal_{{reply.commented_by.id}}">
+                        <b style="color: blue;">{{reply.commented_by.fullname}}</b>
+                    </span>
+                    {% else %}
                     <h5><b>{{reply.commented_by.fullname}}</b></h5>
+                    {% endif %}
                     <!-- <span>- {{reply.date_posted}}</span> -->
 
                     {{reply.content}}
@@ -219,34 +226,35 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <!-- Modal Header -->
-            <div class="modal-header">
+            <!-- <div class="modal-header">
                 <h4 class="modal-title">About {{counsil.user.fullname}} </h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+            </div> -->
             <!-- Modal body -->
-            <div class="modal-body">
-                <div class="">
-                    <div class="material-card card">
-                        <div class="card-body">
-                            <center class="mt-4">
-                                <img src="{{counsil.user.google_picture}}" class="rounded-circle" width="150"
-                                    height="150" />
-
-                                <h4 class="card-title mt-2">{{counsil.user.fullname}}</h4>
-                                <h6 class="card-subtitle">{{counsil.user.user.email}}</h6>
-                                <h6 class="card-subtitle">{{counsil.college}} ({{counsil.from_yr}} - {{counsil.to_yr}})
-                                </h6>
-                                <small class="text-muted pt-4 db">Current Job</small>
-                                <h6>{{counsil.current_job}}</h6>
-                            </center>
-                        </div>
-                        <div>
-                            <hr>
-                        </div>
-                        <div class="card-body">
-                            <small class="text-muted pt-4 db">Couselling Philosophy</small>
-                            <h6>{{counsil.counselling_thought}}</h6>
-                        </div>
+            <div class="modal-body text-center">
+                <div class="p-3 bg-info text-white ">
+                    <div class="">
+                        <img src="{{counsil.user.google_picture}}" alt="user" class="rounded-circle" width="60">
+                    </div>
+                    <div class="ms-2">
+                        <h4 class="mb-0 text-white pl-4">{{counsil.user.fullname}}</h4>
+                        <p class="mb-0 pl-4">{{counsil.college}} ({{counsil.from_yr}}-{{counsil.to_yr}})</p>
+                        <p class="mb-0 pl-4">Current Job: {{counsil.current_job}}</p>
+                        <p class="mb-0 pl-4">Email: {{counsil.user.user.email}}</p>
+                
+                        {% if counsil.user.phone %}
+                        <p class="mb-0 pl-4">Phone: {{counsil.user.phone}}</p>
+                
+                        <button class="btn btn-success" onclick="whatsappNum({{counsil.user.phone}})">
+                            Connect on &nbsp;&nbsp;<i class="fab fa-whatsapp"></i></button>
+                
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="material-card card">
+                    <div class="card-body text-left">
+                        <h3 class="pt-4 db">Couselling Philosophy</h3>
+                        <h6 class="text-left">{{counsil.counselling_thought}}</h6>
                     </div>
                 </div>
             </div>
@@ -260,6 +268,14 @@
         textfield[i].classList.add('form-control');
         textfield[i].rows = 3;
     }
+
+    const whatsappNum = (t) => {
+            var txt = t;
+            console.log(t);
+            var final_numb = txt.toString().replace("+", "");
+            window.open(`//api.whatsapp.com/send?phone=${final_numb}&text=Hello`)
+            // return final_numb;
+        }
 </script>
 
 {% endblock %}

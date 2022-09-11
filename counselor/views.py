@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from .models import UserProfile, StudentExtendedProfile, CounsellorExtendedProfile, Comment
+from .models import UserProfile, StudentExtendedProfile, CounsellorExtendedProfile, Comment, Frequestly_Asked_Question
 from django.shortcuts import get_object_or_404
 from .forms import CommentForm
 from django.views.generic.detail import DetailView
@@ -258,6 +258,7 @@ def my_profile_page(request):
                'counsellor_profile': counsellor_profile}
     if request.method == 'POST':
         full_name = request.POST.get('name')
+        phone = request.POST.get('phone')
         college = request.POST.get('college')
         from_yr = request.POST.get('from_yr')
         to_yr = request.POST.get('to_yr')
@@ -265,6 +266,7 @@ def my_profile_page(request):
         description = request.POST.get('description')
 
         staffProfile.fullname = full_name
+        staffProfile.phone = phone
         staffProfile.save()
 
         counsellor_profile.college = college
@@ -319,6 +321,7 @@ def counsellor_profile(request):
     userprofile = UserProfile.objects.get(user=user)
     if request.method == "POST":
         full_name = request.POST.get('name')
+        phone = request.POST.get('phone')
         college = request.POST.get('college')
         from_yr = request.POST.get('from_yr')
         to_yr = request.POST.get('to_yr')
@@ -326,6 +329,7 @@ def counsellor_profile(request):
         description = request.POST.get('description')
 
         userprofile.fullname = full_name
+        userprofile.phone = phone
         userprofile.user_type = 'counsellor'
         userprofile.save()
         CounsellorExtendedProfile.objects.create(
@@ -444,3 +448,14 @@ def college_branch_page(request):
     # student_profile = StudentExtendedProfile.objects.get(user)
     context = {'staffprofile': staffProfile}
     return render(request, 'college_branch.html', context)
+
+
+@login_required(login_url='login')
+def f_a_q_page(request):
+    user = request.user
+    staffProfile = UserProfile.objects.get(user=user)
+    question_answer = Frequestly_Asked_Question.objects.all()
+    # student_profile = StudentExtendedProfile.objects.get(user)
+    context = {'staffprofile': staffProfile,
+               'question_answer': question_answer}
+    return render(request, 'faq.html', context)

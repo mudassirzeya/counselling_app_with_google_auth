@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<div>
+    <h1>Frequently Asked Questions</h1>
+    <br>
+    {% for faq in question_answer %}
+    <div class="card">
+        <div class="card-header" style="background-color: #DFD8D8;">
+            {{faq.question}}
+        </div>
+        <div class="card-body">
+            {{faq.answer}}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

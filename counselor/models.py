@@ -82,3 +82,11 @@ class Comment(models.Model):
         if self.parent is None:
             return True
         return False
+
+
+class Frequestly_Asked_Question(models.Model):
+    question = models.CharField(max_length=500, null=True, blank=True)
+    answer = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.question)
