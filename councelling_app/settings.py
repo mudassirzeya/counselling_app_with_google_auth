@@ -41,10 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'counselor',
     'social_django',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',  # for Google OAuth 2.0
 ]
 
 MIDDLEWARE = [
@@ -146,7 +142,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 LOGIN_URL = 'login'
@@ -161,28 +156,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 UPLOAD_IMAGE_URL = '/var/www/councelling_app/static/media/'
 
 SITE_ID = 1
-# LOGIN_REDIRECT_URL = '/'
 
-# 850296146285-gu8cdr91ee927mvdr5s3kf6hhhklp54o.apps.googleusercontent.com --> client Id
-# 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 --> client secret
-
-# Additional configuration settings
-# SOCIALACCOUNT_QUERY_EMAIL = True
-# ACCOUNT_LOGOUT_ON_GET = True
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_EMAIL_REQUIRED = True
-
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#         'SCOPE': [
-#             'profile',
-#             'email',
-#         ],
-#         'AUTH_PARAMS': {
-#             'access_type': 'online',
-#         }
-#     }
-# # }
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
