@@ -90,3 +90,11 @@ class Frequestly_Asked_Question(models.Model):
 
     def __str__(self):
         return str(self.question)
+
+
+class Secret_Key(models.Model):
+    key = models.CharField(max_length=500, null=True, blank=True)
+    secret_key = models.CharField(max_length=500, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.key)
