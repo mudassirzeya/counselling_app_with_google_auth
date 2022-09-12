@@ -10,7 +10,7 @@
             {{faq.question}}
         </div>
         <div class="card-body">
-            {{faq.answer}}
+            {{faq.answer | safe}}
         </div>
     </div>
     {% endfor %}
