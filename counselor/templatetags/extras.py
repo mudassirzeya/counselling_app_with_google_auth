@@ -10,4 +10,9 @@ def get_val(dict, key):
 
 @register.filter
 def keyvalue(dict, key):
-    return dict[key]
+    answer = ''
+    try:
+        answer = dict[key]
+    except Exception:
+        answer = ''
+    return answer
