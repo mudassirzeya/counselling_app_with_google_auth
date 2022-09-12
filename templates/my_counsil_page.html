@@ -90,7 +90,7 @@
                 <div class="row pt-1">
                     <div class="col-12 mb-3">
                         <h6>Description</h6>
-                        <p class="text-muted">{{my_profile.description}}</p>
+                        <p class="text-muted" style="white-space:pre-wrap">{{my_profile.description}}</p>
                     </div>
                 </div>
             </div>
@@ -116,7 +116,7 @@
             <!-- <span>- {{comment.date_posted}}</span> -->
         </div>
         <div class="card-body">
-            <p class="card-text">{{comment.content}}</p>
+            <p class="card-text" style="white-space:pre-wrap">{{comment.content}}</p>
             <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
         </div>
         <div class="card-footer">
@@ -133,8 +133,7 @@
                     <h5><b>{{reply.commented_by.fullname}}</b></h5>
                     {% endif %}
                     <!-- <span>- {{reply.date_posted}}</span> -->
-
-                    {{reply.content}}
+                    <p style="white-space:pre-wrap">{{reply.content}}</p>
                 </div>
             </div>
             {% endfor %}
@@ -254,7 +253,7 @@
                 <div class="material-card card">
                     <div class="card-body text-left">
                         <h3 class="pt-4 db">Couselling Philosophy</h3>
-                        <h6 class="text-left">{{counsil.counselling_thought | safe}}</h6>
+                        <h6 class="text-left" style="white-space:pre-wrap">{{counsil.counselling_thought | safe}}</h6>
                     </div>
                 </div>
             </div>
