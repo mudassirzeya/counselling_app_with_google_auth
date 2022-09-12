@@ -97,6 +97,15 @@ def counsellor_list_page(request):
 def student_list_page(request):
     user = request.user
     student = StudentExtendedProfile.objects.all()
+    all_comment = Comment.objects.all().order_by('date_posted')
+    # done = []
+    last_msg_timestamp = {}
+    for comment in all_comment:
+        student_id = comment.comment_to.id
+        time_stamp = comment.date_posted
+        last_msg_timestamp[student_id] = time_stamp
+    print('msg: ', last_msg_timestamp)
+
     try:
         staffProfile = UserProfile.objects.get(user=user)
     except Exception:
@@ -106,7 +115,8 @@ def student_list_page(request):
     except Exception:
         usertype = None
 
-    context = {'staffprofile': staffProfile, 'students': student}
+    context = {'staffprofile': staffProfile, 'students': student,
+               'last_msg_timestamp': last_msg_timestamp}
     if usertype:
         if usertype == 'student':
             if staffProfile.user_status == 'approved':
