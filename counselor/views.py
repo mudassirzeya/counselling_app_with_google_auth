@@ -303,6 +303,7 @@ def student_profile(request):
         description = request.POST.get('description')
         userprofile.fullname = full_name
         userprofile.user_type = 'student'
+        userprofile.user_status = 'approved'
         userprofile.save()
         StudentExtendedProfile.objects.create(
             user=userprofile,
@@ -331,6 +332,7 @@ def counsellor_profile(request):
         userprofile.fullname = full_name
         userprofile.phone = phone
         userprofile.user_type = 'counsellor'
+        userprofile.user_status = 'approved'
         userprofile.save()
         CounsellorExtendedProfile.objects.create(
             user=userprofile,
