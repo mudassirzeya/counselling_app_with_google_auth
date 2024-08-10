@@ -62,7 +62,7 @@ class Comment(models.Model):
     comment_to = models.ForeignKey(
         StudentExtendedProfile, on_delete=models.CASCADE)
     commented_by = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(max_length=250)
     date_posted = models.DateTimeField(auto_now_add=True)
     parent = models.ForeignKey(
         'self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')

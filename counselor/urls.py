@@ -20,6 +20,8 @@ urlpatterns = [
     path('college_and_branch/', college_branch_page, name='college_and_branch'),
     path('frequently_asked_questions/', f_a_q_page,
          name='frequently_asked_questions'),
+    #     path('video_api/', video_api,
+    #          name='video_api'),
 
 
 

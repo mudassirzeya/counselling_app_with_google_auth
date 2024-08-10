@@ -150,8 +150,10 @@ LOGOUT_URL = 'logout'
 LOGOUT_REDIRECT_URL = 'login'
 
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '850296146285-gu8cdr91ee927mvdr5s3kf6hhhklp54o.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+# get your Client ID from Google Cloud Console API Services.
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'Client ID'
+# get your Client Secret Key from Google Cloud Console API Services.
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Client Secret Key'
 
 UPLOAD_IMAGE_URL = '/var/www/councelling_app/static/media/'
 

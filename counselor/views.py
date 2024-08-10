@@ -8,9 +8,11 @@ from django.shortcuts import get_object_or_404
 from .forms import CommentForm
 from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
-from PIL import Image
+from django.http import JsonResponse
+# from PIL import Image
 from councelling_app.settings import UPLOAD_IMAGE_URL
-import requests
+# import requests
+import json
 
 
 # Create your views here.
@@ -471,3 +473,19 @@ def f_a_q_page(request):
     context = {'staffprofile': staffProfile,
                'question_answer': question_answer}
     return render(request, 'faq.html', context)
+
+
+# def video_api(request):
+#     video_id = request.GET.get("uid")
+#     url = "https://dev.vdocipher.com/api/videos/"+video_id+"/otp"
+
+#     payloadStr = json.dumps({'ttl': 300})
+#     headers = {
+#         'Authorization': "Apisecret jVhzZfBzLVG1DxKKaJMkNeatoZQym2s13TUCyxbM25fzgWPjegUnX6ZuD6qVqG0F",
+#         'Content-Type': "application/json",
+#         'Accept': "application/json"
+#     }
+#     response = requests.request("POST", url, data=payloadStr, headers=headers)
+#     response_got = json.loads(response.text)
+#     print('response', response_got)
+#     return JsonResponse({'data': response_got})
