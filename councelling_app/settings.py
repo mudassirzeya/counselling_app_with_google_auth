@@ -151,9 +151,10 @@ LOGOUT_REDIRECT_URL = 'login'
 
 
 # get your Client ID from Google Cloud Console API Services.
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'Client ID'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+
 # get your Client Secret Key from Google Cloud Console API Services.
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'Client Secret Key'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
 
 UPLOAD_IMAGE_URL = '/var/www/councelling_app/static/media/'
 
